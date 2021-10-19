@@ -24,7 +24,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten,AveragePooling2D
 from keras.layers import Conv2D, MaxPooling2D
 from keras.optimizers import Adam,RMSprop,Adadelta
-def make_model(i=0):
+def make_model(i=0): # i tells the extra no. of neurons apart from 64 we want in every training
     model=Sequential()
     model.add(Conv2D(32,(3,3),padding='same',activation='relu',input_shape=(28,28,1)))
     model.add(Conv2D(32,(3,3),padding='same',activation='relu'))
@@ -39,7 +39,8 @@ while accuracy<"0.99":
     #v=open("accuracy.txt","w+")
     #prev=v.read()
     #print(prev)
-    model,neuron=make_model(64*count)
+    model,neuron=make_model(64*count) # Increasing no.of neurons in order of 0,64,128,256.....respectively from previous training in every successive training. 
+                                      
     print(neuron)
     model.compile(loss='categorical_crossentropy',optimizer='Adam',metrics=['accuracy'])
     from keras.callbacks import ModelCheckpoint, EarlyStopping
@@ -51,7 +52,7 @@ while accuracy<"0.99":
     EPOCHS=1
     model.fit(x_train2,y_train2, batch_size=BATCH_SIZE,epochs = EPOCHS,validation_data = (x_test2,y_test2),callbacks=callbacks,shuffle=True,verbose=1)
     scores=model.evaluate(x_test2,y_test2,verbose=1)
-    print('No. of neurons=',neuron+64)
+    print('No. of neurons=',neuron+64) # Total no.of Neurons in every training
     acc=open("accuracy.txt","w+")
     acc.write(str(scores[1]))
     acc.seek(0)
@@ -64,8 +65,6 @@ while accuracy<"0.99":
     prev=accuracy
     print('TEST ACCURACY:',scores[1])
     acc.close()
-    count=count+1
+    count=count+1 #Counts how no. of training done
 
 #Here's accuracy.txt is the file in which Model Accuracy is written and will be updated when new accuracy of Model will be updated here for the every turn.
-
-
