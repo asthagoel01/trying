@@ -1,4 +1,5 @@
-Thare are 2 files in it: check.py and tweak.py and Both of the files are written by me only where:
+Thare are 2 files in it: check.py and tweak.py.
+where;
 
 check.py- checks the model type means if the model is of CNN or not after importing Python File(contains model) as Module. 
 
